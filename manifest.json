@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "ShotGPT Tools",
-  "version": "2.0.1",
-  "description": "A private toolbox for ChatGPT, including privacy blur and prompt export.",
+  "version": "2.1.1",
+  "description": "A private toolbox for ChatGPT, including privacy blur and conversation export.",
   "icons": {
     "16": "assets/icon.png",
     "32": "assets/icon.png",

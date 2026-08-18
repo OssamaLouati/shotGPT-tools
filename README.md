@@ -10,7 +10,7 @@ A private, extendable Chrome toolbox for ChatGPT.
 ├── shared/                  Page UI shared by every tool
 ├── tools/
 │   ├── privacy-blur/        Privacy Blur page behavior
-│   └── prompt-export/       Prompt Export page behavior
+│   └── prompt-export/       Prompt and whole-chat export behavior
 ├── background.js            Saved-state badge handling
 ├── manifest.json            Chrome extension configuration
 └── dist/                    Packaged extension builds
@@ -33,7 +33,7 @@ Blurs:
 Hover over a message or the composer to reveal it. Open the extension panel to
 turn the effect on or off. Your choice is saved between browser sessions.
 
-### Prompt Export
+### Conversation Export
 
 Open a ChatGPT conversation, click the extension icon, and choose **Export my
 prompts**. The tool scrolls to the beginning to trigger ChatGPT's lazy loading,
@@ -41,6 +41,13 @@ scans through ChatGPT's virtualized conversation, collects your submitted
 prompts in chronological order, and downloads a Markdown file. Large chats can
 take a few minutes to scan. A date is included for a prompt only when ChatGPT
 exposes one in the page.
+
+Choose **Export whole chat** to save the current visible conversation branch,
+including user prompts and ChatGPT replies. The exporter preserves headings,
+lists, code blocks, tables, quotes, links, citations, inline formatting, and
+mathematics where ChatGPT exposes usable page markup. Uploaded or generated
+files are recorded by name or label only; their contents and download URLs are
+never embedded in the export.
 
 ## Install locally
 

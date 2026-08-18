@@ -1,7 +1,9 @@
 const STORAGE_KEY = "privacyBlurEnabled";
 const blurToggle = document.getElementById("blur-toggle");
 const exportButton = document.getElementById("export-button");
+const exportChatButton = document.getElementById("export-chat-button");
 const status = document.getElementById("status");
+const exportButtons = [exportButton, exportChatButton];
 
 chrome.storage.local.get(STORAGE_KEY).then((stored) => {
   blurToggle.checked = stored[STORAGE_KEY] ?? true;
@@ -18,8 +20,10 @@ function setStatus(message, isError = false) {
   status.classList.toggle("error", isError);
 }
 
-exportButton.addEventListener("click", async () => {
-  exportButton.disabled = true;
+async function startExport(messageType, startingMessage) {
+  exportButtons.forEach((button) => {
+    button.disabled = true;
+  });
   setStatus("Starting export…");
 
   try {
@@ -33,28 +37,43 @@ exportButton.addEventListener("click", async () => {
     }
 
     const response = await chrome.tabs.sendMessage(tab.id, {
-      type: "EXPORT_PROMPTS"
+      type: messageType
     });
 
     if (!response?.started) {
       throw new Error(response?.error || "Could not start the export");
     }
 
-    setStatus("Loading prompts in the ChatGPT tab…");
+    setStatus(startingMessage);
   } catch (error) {
     const message = error.message?.includes("Receiving end does not exist")
       ? "Refresh the ChatGPT tab, then try again"
       : error.message || "Could not start the export";
     setStatus(message, true);
-    exportButton.disabled = false;
+    exportButtons.forEach((button) => {
+      button.disabled = false;
+    });
   }
+}
+
+exportButton.addEventListener("click", () => {
+  void startExport("EXPORT_PROMPTS", "Loading prompts in the ChatGPT tab…");
+});
+
+exportChatButton.addEventListener("click", () => {
+  void startExport(
+    "EXPORT_WHOLE_CHAT",
+    "Loading the whole conversation in the ChatGPT tab…"
+  );
 });
 
 chrome.runtime.onMessage.addListener((message) => {
-  if (message?.type !== "PROMPT_EXPORT_PROGRESS") return;
+  if (message?.type !== "EXPORT_PROGRESS") return;
 
   setStatus(message.message, message.status === "error");
   if (message.status === "complete" || message.status === "error") {
-    exportButton.disabled = false;
+    exportButtons.forEach((button) => {
+      button.disabled = false;
+    });
   }
 });
