@@ -11,9 +11,7 @@ async function updateBadge(enabled) {
     color: enabled ? "#0f766e" : "#64748b"
   });
   await chrome.action.setTitle({
-    title: enabled
-      ? "ChatGPT Privacy Blur is on — click to turn off"
-      : "ChatGPT Privacy Blur is off — click to turn on"
+    title: "Open ShotGPT Tools"
   });
 }
 
@@ -31,10 +29,9 @@ chrome.runtime.onStartup.addListener(async () => {
   await updateBadge(await getEnabled());
 });
 
-chrome.action.onClicked.addListener(async () => {
-  const enabled = !(await getEnabled());
-  await chrome.storage.local.set({ [STORAGE_KEY]: enabled });
-  await updateBadge(enabled);
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName !== "local" || !changes[STORAGE_KEY]) return;
+  updateBadge(changes[STORAGE_KEY].newValue);
 });
 
 getEnabled().then(updateBadge);

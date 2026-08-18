@@ -1,24 +1,25 @@
 {
   "manifest_version": 3,
-  "name": "ChatGPT Privacy Blur",
-  "version": "1.0.0",
-  "description": "Blur ChatGPT conversations and the prompt composer until you hover over them.",
+  "name": "ShotGPT Tools",
+  "version": "2.0.0",
+  "description": "A private toolbox for ChatGPT, including privacy blur and prompt export.",
   "icons": {
-    "16": "64874.png",
-    "32": "64874.png",
-    "48": "64874.png",
-    "128": "64874.png"
+    "16": "assets/icon.png",
+    "32": "assets/icon.png",
+    "48": "assets/icon.png",
+    "128": "assets/icon.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["activeTab", "storage"],
   "host_permissions": [
     "https://chatgpt.com/*",
     "https://chat.openai.com/*"
   ],
   "action": {
-    "default_title": "Toggle ChatGPT Privacy Blur",
+    "default_title": "Open ShotGPT Tools",
+    "default_popup": "popup/index.html",
     "default_icon": {
-      "16": "64874.png",
-      "32": "64874.png"
+      "16": "assets/icon.png",
+      "32": "assets/icon.png"
     }
   },
   "background": {
@@ -30,8 +31,15 @@
         "https://chatgpt.com/*",
         "https://chat.openai.com/*"
       ],
-      "css": ["blur.css"],
-      "js": ["content.js"],
+      "css": [
+        "shared/page-ui.css",
+        "tools/privacy-blur/styles.css"
+      ],
+      "js": [
+        "shared/page-ui.js",
+        "tools/privacy-blur/content.js",
+        "tools/prompt-export/content.js"
+      ],
       "run_at": "document_start"
     }
   ]

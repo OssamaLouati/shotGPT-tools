@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShotGPT Tools</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header>
+      <img src="../assets/icon.png" alt="" width="34" height="34">
+      <div>
+        <h1>ShotGPT Tools</h1>
+        <p>Private tools for ChatGPT</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="tool-row">
+        <div>
+          <h2>Privacy Blur</h2>
+          <p>Reveal messages and the composer on hover.</p>
+        </div>
+        <label class="switch" aria-label="Toggle Privacy Blur">
+          <input id="blur-toggle" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <section class="export-tool">
+        <div>
+          <h2>Prompt Export</h2>
+          <p>Load and save all of your prompts as Markdown.</p>
+        </div>
+        <button id="export-button" type="button">Export my prompts</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
