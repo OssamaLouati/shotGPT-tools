@@ -49,3 +49,12 @@ exportButton.addEventListener("click", async () => {
     exportButton.disabled = false;
   }
 });
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (message?.type !== "PROMPT_EXPORT_PROGRESS") return;
+
+  setStatus(message.message, message.status === "error");
+  if (message.status === "complete" || message.status === "error") {
+    exportButton.disabled = false;
+  }
+});

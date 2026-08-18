@@ -37,15 +37,17 @@ turn the effect on or off. Your choice is saved between browser sessions.
 
 Open a ChatGPT conversation, click the extension icon, and choose **Export my
 prompts**. The tool scrolls to the beginning to trigger ChatGPT's lazy loading,
-collects your submitted prompts in chronological order, and downloads a Markdown
-file. A date is included for a prompt only when ChatGPT exposes one in the page.
+scans through ChatGPT's virtualized conversation, collects your submitted
+prompts in chronological order, and downloads a Markdown file. Large chats can
+take a few minutes to scan. A date is included for a prompt only when ChatGPT
+exposes one in the page.
 
 ## Install locally
 
 1. Open `chrome://extensions` in Chrome.
 2. Turn on **Developer mode** in the top-right corner.
 3. Click **Load unpacked**.
-4. Select this `hide-chatgpt` folder.
+4. Select this `shotGPT tools` folder.
 5. Open or refresh [ChatGPT](https://chatgpt.com/).
 
 The toolbar badge says **ON** while Privacy Blur is active and **OFF** when it is
